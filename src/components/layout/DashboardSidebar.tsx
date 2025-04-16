@@ -13,10 +13,16 @@ import {
   FileText, 
   Bell, 
   Settings,
-  User
+  User,
+  X
 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
-const DashboardSidebar: React.FC = () => {
+interface DashboardSidebarProps {
+  closeSidebar?: () => void;
+}
+
+const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ closeSidebar }) => {
   const { user } = useAuth();
 
   // Navigation items based on user role
@@ -54,16 +60,35 @@ const DashboardSidebar: React.FC = () => {
     ];
   };
 
+  const handleLinkClick = () => {
+    // Close sidebar on mobile when a link is clicked
+    if (closeSidebar) {
+      closeSidebar();
+    }
+  };
+
   return (
-    <div className="bg-white border-r border-gray-200 w-64 flex-shrink-0 hidden md:block">
-      <div className="h-16 flex items-center justify-center border-b border-gray-200">
+    <div className="bg-white border-r border-gray-200 w-64 h-full flex flex-col">
+      {/* Mobile close button */}
+      <div className="md:hidden flex justify-between items-center h-16 px-4 border-b border-gray-200">
+        <div className="flex items-center">
+          <School className="h-6 w-6 text-college-navy" />
+          <span className="ml-2 text-lg font-semibold text-college-navy">CMS</span>
+        </div>
+        <Button variant="ghost" size="sm" onClick={closeSidebar}>
+          <X className="h-5 w-5" />
+        </Button>
+      </div>
+      
+      {/* Logo for desktop */}
+      <div className="hidden md:flex h-16 items-center justify-center border-b border-gray-200">
         <School className="h-8 w-8 text-college-navy" />
         <span className="ml-2 text-xl font-semibold text-college-navy">CMS</span>
       </div>
       
-      <div className="p-4">
+      <div className="p-4 flex-1 overflow-y-auto">
         <div className="pb-2 mb-2">
-          <p className="text-sm font-medium text-gray-500">{user?.role.toUpperCase()}</p>
+          <p className="text-sm font-medium text-gray-500">{user?.role?.toUpperCase()}</p>
           <p className="text-base font-semibold truncate">{user?.name}</p>
         </div>
         
@@ -80,6 +105,7 @@ const DashboardSidebar: React.FC = () => {
                     : 'text-gray-700 hover:bg-gray-100'
                 )
               }
+              onClick={handleLinkClick}
             >
               {item.icon}
               <span className="ml-3">{item.name}</span>

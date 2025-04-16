@@ -21,6 +21,11 @@ import TeacherDashboard from "@/pages/teacher/TeacherDashboard";
 
 // Student Pages
 import StudentDashboard from "@/pages/student/StudentDashboard";
+import StudentCourses from "@/pages/student/StudentCourses";
+import StudentAttendance from "@/pages/student/StudentAttendance";
+import StudentGrades from "@/pages/student/StudentGrades";
+import StudentAnnouncements from "@/pages/student/StudentAnnouncements";
+import StudentProfile from "@/pages/student/StudentProfile";
 
 const queryClient = new QueryClient();
 
@@ -75,7 +80,11 @@ const App = () => {
                 element={<DashboardLayout allowedRoles={["student"]} />}
               >
                 <Route index element={<StudentDashboard />} />
-                {/* Additional student routes will be added here */}
+                <Route path="courses" element={<StudentCourses />} />
+                <Route path="attendance" element={<StudentAttendance />} />
+                <Route path="grades" element={<StudentGrades />} />
+                <Route path="announcements" element={<StudentAnnouncements />} />
+                <Route path="profile" element={<StudentProfile />} />
               </Route>
 
               {/* 404 route */}

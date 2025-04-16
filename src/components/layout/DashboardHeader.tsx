@@ -13,7 +13,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-const DashboardHeader: React.FC = () => {
+interface DashboardHeaderProps {
+  toggleSidebar: () => void;
+}
+
+const DashboardHeader: React.FC<DashboardHeaderProps> = ({ toggleSidebar }) => {
   const { user, logout } = useAuth();
   
   // Get user initials for avatar
@@ -29,7 +33,7 @@ const DashboardHeader: React.FC = () => {
   return (
     <header className="bg-white border-b border-gray-200 h-16 flex items-center px-4 justify-between">
       <div className="flex items-center md:hidden">
-        <Button variant="ghost" size="icon" className="mr-2">
+        <Button variant="ghost" size="icon" onClick={toggleSidebar} className="mr-2">
           <Menu className="h-5 w-5" />
         </Button>
       </div>
