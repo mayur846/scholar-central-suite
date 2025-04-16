@@ -1,11 +1,26 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { School } from "lucide-react";
 
 const Index = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Redirect to login page after showing splash screen briefly
+    const timer = setTimeout(() => {
+      navigate("/login");
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-college-navy/90 to-college-navy">
+      <div className="text-center animate-fade-in">
+        <School className="h-20 w-20 text-white mx-auto mb-4" />
+        <h1 className="text-4xl font-bold text-white mb-2">College Management System</h1>
+        <p className="text-xl text-white/80">Loading...</p>
       </div>
     </div>
   );
